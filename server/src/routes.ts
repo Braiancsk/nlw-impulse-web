@@ -9,6 +9,7 @@ import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-ada
 
 
 routes.post('/feedbacks', async (req, res) =>{
+    try{
         const {type, comment,screenshot} = req.body
 
         const prismaFeedbacksRepository = new PrismaFeedbacksRepository()
@@ -28,4 +29,9 @@ routes.post('/feedbacks', async (req, res) =>{
 
 
         res.status(201).send()
+    }catch(err){
+        console.log(err)
+        return res.status(500).send()
+    }
+        
 })
